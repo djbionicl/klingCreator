@@ -2,7 +2,7 @@ import argparse
 import os
 import time
 import contextlib
-from typing import Optional
+from typing import Optional, Literal
 from enum import Enum
 from http.cookies import SimpleCookie
 
@@ -429,8 +429,12 @@ class ImageGen(BaseGen):
         prompt: str,
         image_path: Optional[str] = None,
         image_url: Optional[str] = None,
-        ratio: Optional[str] = None,
+        ratio: Literal[
+            "1:1", "16:9", "4:3", "3:2", "2:3", "3:4", "9:16", "21:9"
+        ] = "1:1",
+        count: Literal[1, 2, 3, 4] = 4,
     ) -> list:
+
         if ratio not in (
             "1:1",
             "16:9",
@@ -440,9 +444,14 @@ class ImageGen(BaseGen):
             "3:4",
             "9:16",
             "21:9",
-            None,
         ):
             raise ValueError(f'Unsupported ratio "{ratio}".')
+
+        if count < 1 or count > 4:
+            raise ValueError(
+                f'Unsupported images count "{count}". From 1 to 4 required.'
+            )
+
         self.session.headers["user-agent"] = ua.random
         if image_path or image_url:
             if image_path:
@@ -458,11 +467,11 @@ class ImageGen(BaseGen):
                     },
                     {
                         "name": "aspect_ratio",
-                        "value": ratio or "1:1",
+                        "value": ratio,
                     },
                     {
                         "name": "imageCount",
-                        "value": "4",
+                        "value": count,
                     },
                     {
                         "name": "fidelity",
@@ -495,11 +504,11 @@ class ImageGen(BaseGen):
                     },
                     {
                         "name": "aspect_ratio",
-                        "value": "1:1",
+                        "value": ratio,
                     },
                     {
                         "name": "imageCount",
-                        "value": "4",
+                        "value": count,
                     },
                     {
                         "name": "biz",
