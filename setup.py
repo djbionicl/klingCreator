@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="kling-creator",
-    version="0.3.4",
+    version="0.4.0",
     author="yihong0618",
     author_email="zouzou0208@gmail.com",
     description="High quality video generation by https://klingai.kuaishou.com/. Reverse engineered API.",
@@ -19,9 +19,10 @@ setup(
     classifiers=[
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Libraries :: Python Modules",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ],
 )
