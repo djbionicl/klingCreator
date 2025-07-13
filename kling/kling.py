@@ -13,7 +13,7 @@ from rich import print
 import threading
 
 browser_version = "edge101"
-ua = UserAgent(browsers=["edge"])
+ua = UserAgent(browsers=["Edge"])
 base_url = "https://klingai.kuaishou.com/"
 base_url_not_cn = "https://klingai.com/"
 

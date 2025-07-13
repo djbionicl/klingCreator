@@ -9,7 +9,7 @@ setup(
     url="https://github.com/yihong0618/klingCreator",
     install_requires=[
         "requests",
-        "fake-useragent",
+        "fake-useragent>=2.0.3",
         "rich",
     ],
     packages=find_packages(exclude=["tests", "tests.*"]),
