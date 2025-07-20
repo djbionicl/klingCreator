@@ -279,7 +279,7 @@ class VideoGen(BaseGen):
         image_url: Optional[str] = None,
         is_high_quality: bool = False,
         auto_extend: bool = False,
-        model_name: str = "1.0",
+        model_name: Literal["1.0", "1.5", "1.6", "2.1"] = "1.0",
     ) -> list:
         self.session.headers["user-agent"] = ua.random
         if image_path or image_url:
@@ -390,7 +390,7 @@ class VideoGen(BaseGen):
         image_url: Optional[str] = None,
         is_high_quality: bool = False,
         auto_extend: bool = False,
-        model_name: str = "1.0",
+        model_name: Literal["1.0", "1.5", "1.6", "2.1"] = "1.0",
     ) -> None:
         mp4_index = 0
         try:
