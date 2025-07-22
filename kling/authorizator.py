@@ -37,5 +37,6 @@ class Authorizator:
             self.__Session.cookies.set(
                 "ksi18n.ai.portal_st", Data["ksi18n.ai.portal_st"]
             )
+            return Data
         except:
             pass
