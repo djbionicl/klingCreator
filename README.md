@@ -1,5 +1,5 @@
 # klingCreator
-About High quality video and image generation by  https://klingai.kuaishou.com Reverse engineered API.
+About High quality video and image generation by https://klingai.kuaishou.com Reverse engineered API.
 
 
 
@@ -39,13 +39,20 @@ pip install -U kling-creator
 ```
 
 ```python
-from kling import ImageGen, VideoGen
-i = ImageGen('cookie') # Replace 'cookie'
+from kling import ImageGen, VideoGen, Authorizator
+
+EMAIL, PASSWORD = "", ""
+
+# Authorization by email and password
+a = Authorizator()
+a.auth(EMAIL, PASSWORD)
+
+i = ImageGen(a.cookies) # Use cookies from Authorizator
 i.save_image("a blue cyber dream", './output')
 # xxxx_url means your based kling ur
 i.save_images("a blue cyber dream", './output', image_url="xxxx.png")
 
-v = VideoGen('cookie') # Replace 'cookie' 
+v = VideoGen('cookie') # Replace 'cookie' manualy
 # xxxx_url means your based kling ur
 v.save_video("a blue cyber dream", './output', image_url="xxxxx_url.png")
 # you can also use high quality
