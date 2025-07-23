@@ -1,3 +1,4 @@
+from typing import Optional
 import requests
 import json
 
@@ -14,7 +15,7 @@ class Authorizator:
         self.__SID = sid
         self.__Session = requests.Session()
 
-    def auth(self, email: str, password: str) -> dict | None:
+    def auth(self, email: str, password: str) -> Optional[dict]:
         AUTH_ENDPOINT = "https://id.klingai.com/pass/ksi18n/web/login/emailPassword"
 
         Payload = {
