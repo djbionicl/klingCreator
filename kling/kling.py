@@ -445,7 +445,8 @@ class ImageGen(BaseGen):
         ratio: Literal[
             "1:1", "16:9", "4:3", "3:2", "2:3", "3:4", "9:16", "21:9"
         ] = "1:1",
-        count: Literal[1, 2, 3, 4] = 4,
+        count: int = 4,
+        model_name: Literal["1.0", "1.5", "2.0", "2.1"] = "2.1",
     ) -> list:
 
         if ratio not in (
@@ -460,9 +461,9 @@ class ImageGen(BaseGen):
         ):
             raise ValueError(f'Unsupported ratio "{ratio}".')
 
-        if count < 1 or count > 4:
+        if count < 1 or count > 9:
             raise ValueError(
-                f'Unsupported images count "{count}". From 1 to 4 required.'
+                f'Unsupported images count "{count}". From 1 to 9 required.'
             )
 
         self.session.headers["user-agent"] = ua.random
@@ -485,6 +486,10 @@ class ImageGen(BaseGen):
                     {
                         "name": "imageCount",
                         "value": count,
+                    },
+                    {
+                        "name": "kolors_version",
+                        "value": model_name,
                     },
                     {
                         "name": "fidelity",
@@ -522,6 +527,10 @@ class ImageGen(BaseGen):
                     {
                         "name": "imageCount",
                         "value": count,
+                    },
+                    {
+                        "name": "kolors_version",
+                        "value": model_name,
                     },
                     {
                         "name": "biz",
@@ -589,10 +598,12 @@ class ImageGen(BaseGen):
         output_dir: str,
         image_path: Optional[str] = None,
         image_url: Optional[str] = None,
+        count: int = 4,
+        model_name: Literal["1.0", "1.5", "2.0", "2.1"] = "2.1",
     ) -> None:
         png_index = 0
         try:
-            links = self.get_images(prompt, image_path, image_url)
+            links = self.get_images(prompt, image_path, image_url, count, model_name)
         except Exception as e:
             print(e)
             raise
