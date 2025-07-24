@@ -445,6 +445,7 @@ class ImageGen(BaseGen):
         ] = "1:1",
         count: int = 4,
         model_name: Literal["1.0", "1.5", "2.0", "2.1"] = "2.1",
+        high_res: bool = False,
     ) -> list:
 
         if ratio not in (
@@ -472,7 +473,19 @@ class ImageGen(BaseGen):
                 image_payload_url = image_url
             payload = {
                 "arguments": [
+                    {
+                        "name": "biz",
+                        "value": "klingai",
+                    },
                     {"name": "prompt", "value": prompt},
+                    {
+                        "name": "imageCount",
+                        "value": str(count),
+                    },
+                    {
+                        "name": "kolors_version",
+                        "value": model_name,
+                    },
                     {
                         "name": "style",
                         "value": "默认",
@@ -480,22 +493,6 @@ class ImageGen(BaseGen):
                     {
                         "name": "aspect_ratio",
                         "value": ratio,
-                    },
-                    {
-                        "name": "imageCount",
-                        "value": count,
-                    },
-                    {
-                        "name": "kolors_version",
-                        "value": model_name,
-                    },
-                    {
-                        "name": "fidelity",
-                        "value": "0.5",
-                    },
-                    {
-                        "name": "biz",
-                        "value": "klingai",
                     },
                 ],
                 "type": "mmu_img2img_aiweb",
@@ -511,8 +508,17 @@ class ImageGen(BaseGen):
             payload = {
                 "arguments": [
                     {
-                        "name": "prompt",
-                        "value": prompt,
+                        "name": "biz",
+                        "value": "klingai",
+                    },
+                    {"name": "prompt", "value": prompt},
+                    {
+                        "name": "imageCount",
+                        "value": str(count),
+                    },
+                    {
+                        "name": "kolors_version",
+                        "value": model_name,
                     },
                     {
                         "name": "style",
@@ -522,22 +528,15 @@ class ImageGen(BaseGen):
                         "name": "aspect_ratio",
                         "value": ratio,
                     },
-                    {
-                        "name": "imageCount",
-                        "value": count,
-                    },
-                    {
-                        "name": "kolors_version",
-                        "value": model_name,
-                    },
-                    {
-                        "name": "biz",
-                        "value": "klingai",
-                    },
                 ],
                 "type": "mmu_txt2img_aiweb",
                 "inputs": [],
             }
+
+        if model_name in ("2.0", "2.1"):
+            payload["arguments"].append(
+                {"name": "img_resolution", "value": "2k" if high_res else "1k"}
+            )
 
         response = self.session.post(
             self.submit_url,
