@@ -598,12 +598,15 @@ class ImageGen(BaseGen):
         output_dir: str,
         image_path: Optional[str] = None,
         image_url: Optional[str] = None,
+        ratio: Literal[
+            "1:1", "16:9", "4:3", "3:2", "2:3", "3:4", "9:16", "21:9"
+        ] = "1:1",
         count: int = 4,
         model_name: Literal["1.0", "1.5", "2.0", "2.1"] = "2.1",
     ) -> None:
         png_index = 0
         try:
-            links = self.get_images(prompt, image_path, image_url, count, model_name)
+            links = self.get_images(prompt, image_path, image_url, ratio, count, model_name)
         except Exception as e:
             print(e)
             raise
