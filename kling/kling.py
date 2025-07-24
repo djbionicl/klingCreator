@@ -1,5 +1,3 @@
-from .authorizator import Authorizator
-
 import argparse
 import os
 import time
