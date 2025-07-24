@@ -606,7 +606,9 @@ class ImageGen(BaseGen):
     ) -> None:
         png_index = 0
         try:
-            links = self.get_images(prompt, image_path, image_url, ratio, count, model_name)
+            links = self.get_images(
+                prompt, image_path, image_url, ratio, count, model_name
+            )
         except Exception as e:
             print(e)
             raise
